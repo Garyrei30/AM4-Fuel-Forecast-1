@@ -42,4 +42,4 @@ The AM4-Fuel-Forecast bot is released under the [MIT License](LICENSE).
 
 - The developers of Airline Manager 4 for providing the game that inspired this project.
 - The creators of the Discord API and Flask framework for enabling the bot's functionality.
-- [OpenAI](https://openai.com/) for developing GPT-3.5, the language model used to help in creation of this readme file.
+- [OpenAI](https://openai.com/) for developing GPT-3.5, the language model used to help in creation of this project.
