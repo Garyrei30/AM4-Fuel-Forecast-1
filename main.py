@@ -97,7 +97,7 @@ async def on_ready():
 
 @bot.command()
 async def fuel(ctx, message: str = ""):
-        if message.upper() == "DAILY" and (ctx.channel.id == 831789159587774504 or ctx.channel.id == 1110787679156719617 or ctx.channel.id == 1065077254335504385):
+        if message.upper() == "DAILY" and (ctx.channel.id == os.environ['BotServer'] or ctx.channel.id == os.environ['RegiusTest'] or ctx.channel.id == os.environ['RegiusFuel']):
                 data, date = database.getDailyPrice()
 
                 # Create a new embed message
@@ -113,7 +113,7 @@ async def fuel(ctx, message: str = ""):
                 # Create a new Pin
                 await message.pin()
 
-        elif ctx.channel.id == 831789159587774504 or ctx.channel.id == 1110787679156719617 or ctx.channel.id == 1065077254335504385:
+        elif ctx.channel.id == os.environ['BotServer'] or ctx.channel.id == os.environ['RegiusTest'] or ctx.channel.id == os.environ['RegiusFuel']:
                 data = database.getPrice()
                 # Create a new embed message
                 embed = create_embed(data)
@@ -123,7 +123,7 @@ async def fuel(ctx, message: str = ""):
 async def on_message(message):
     if message.author == bot.user:
         return
-    if message.channel.id == 1112339095566434334 and message.content.startswith('$Fuel&CO2!'):
+    if message.channel.id == os.environ['GetFuelID'] and message.content.startswith('$Fuel&CO2!'):
         content = message.content.split(" ")
         fuel = content[1]
         co2 = content[2]
@@ -133,16 +133,16 @@ async def on_message(message):
         dbCO2 = dbData[2]
         if int(fuel) != int(dbFuel) and int(co2) != int(dbCO2):
            text = database.updateBoth(table_name, dbTime, fuel, co2)
-           channel = bot.get_channel(1112731546579902614)
+           channel = bot.get_channel(os.environ['LogFuelID'])
            await channel.send(text)
 
         elif int(fuel) != int(dbFuel):
             text = database.updateFuel(table_name,dbTime,fuel)
-            channel = bot.get_channel(1112731546579902614)
+            channel = bot.get_channel(os.environ['LogFuelID'])
             await channel.send(text)
         elif int(co2) != int(dbCO2):
             text = database.updateCO2(table_name,dbTime,co2)
-            channel = bot.get_channel(1112731546579902614)
+            channel = bot.get_channel(os.environ['LogFuelID'])
             await channel.send(text)
     await bot.process_commands(message)
                         
